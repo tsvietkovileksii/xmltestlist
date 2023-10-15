@@ -24,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->singleton(BoredApiService::class, function ($app) {
+            return new BoredApiService(
+                $app->make(Client::class)
+            );
+        });
+
+        $this->app->singleton(RandomUserApiService::class, function ($app) {
+            return new RandomUserApiService(
+                $app->make(Client::class)
+            );
+        });
 
     }
 
