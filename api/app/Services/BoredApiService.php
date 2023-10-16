@@ -34,11 +34,18 @@ class BoredApiService extends BaseApiService implements ApiServiceInterface
      */
     public function extractData(array $data): array
     {
-        if (empty($data['name']['first']) || empty($data['name']['last']) || empty($data['phone']) ||
+        if (empty($data['name_first']) || empty($data['name_last']) || empty($data['phone']) ||
             empty($data['email']) || empty($data['country'])) {
             throw new \Exception('Invalid API responses.');
         }
 
-        return $data;
+        $result['fullName'] = implode(' ', [$data['name_first'], $data['name_last']]);
+        $result['firstName'] = $data['name_first'];
+        $result['lastName'] = $data['name_last'];
+        $result['phone'] = $data['phone'];
+        $result['email'] = $data['email'];
+        $result['country'] = $data['location']['country'];
+
+        return $result;
     }
 }
